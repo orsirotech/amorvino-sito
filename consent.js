@@ -6,8 +6,9 @@
    I tracciamenti partono solo sul dominio vero (siteUrl in config.json), mai in anteprima. */
 (function () {
   var SRC = (document.currentScript && document.currentScript.src) || location.href;
-  var PRIVACY = new URL('privacy/', SRC).href;
   var IT = (document.documentElement.lang || 'it').slice(0, 2) !== 'en';
+  var PRIVACY = new URL(IT ? 'privacy/' : 'en/privacy/', SRC).href;
+  var COOKIEP = new URL(IT ? 'cookie/' : 'en/cookie/', SRC).href;
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function () { dataLayer.push(arguments); };
   gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', functionality_storage: 'granted', security_storage: 'granted', wait_for_update: 500 });
@@ -65,7 +66,7 @@
               title: 'Due parole sui cookie',
               description: 'Usiamo cookie tecnici per far funzionare il sito e, solo se accetti, cookie statistici per capire quali pagine interessano di più e cookie di marketing per misurare le pubblicità su Google, Facebook e Instagram. Puoi cambiare idea quando vuoi dal link «Cookie» in fondo alla pagina.',
               acceptAllBtn: 'Accetta tutti', acceptNecessaryBtn: 'Rifiuta', showPreferencesBtn: 'Scegli tu', closeIconLabel: 'Chiudi e rifiuta',
-              footer: '<a href="' + PRIVACY + '">Privacy e cookie</a>'
+              footer: '<a href="' + PRIVACY + '">Privacy policy</a> <a href="' + COOKIEP + '">Cookie policy</a>'
             },
             preferencesModal: {
               title: 'Le tue preferenze sui cookie',
@@ -75,7 +76,7 @@
                 { title: 'Necessari <span class="pm__badge">Sempre attivi</span>', description: 'Ricordano la tua scelta sui cookie e la conferma della maggiore età. Non raccolgono dati per il marketing.', linkedCategory: 'necessary' },
                 { title: 'Statistiche', description: 'Google Analytics 4 con IP anonimizzato: ci dice quali parti della pagina interessano di più. Si attiva solo con il tuo consenso.', linkedCategory: 'analytics', cookieTable: { caption: 'Cookie statistici', headers: { name: 'Nome', desc: 'A cosa serve', exp: 'Durata' }, body: [ { name: '_ga', desc: 'Distingue i visitatori (Google Analytics)', exp: '2 anni' }, { name: '_ga_*', desc: 'Mantiene la sessione (Google Analytics)', exp: '2 anni' } ] } },
                 { title: 'Marketing', description: 'Google Ads e Meta Pixel (Facebook e Instagram): misurano le nostre pubblicità e ci permettono di farle vedere a chi ha già visitato il sito. Restano spenti finché non li scegli tu.', linkedCategory: 'marketing', cookieTable: { caption: 'Cookie di marketing', headers: { name: 'Nome', desc: 'A cosa serve', exp: 'Durata' }, body: [ { name: '_gcl_*', desc: 'Misura le conversioni delle campagne (Google Ads)', exp: '90 giorni' }, { name: '_fbp', desc: 'Misura le campagne (Meta Pixel)', exp: '90 giorni' } ] } },
-                { title: 'Maggiori informazioni', description: 'Leggi la <a href="' + PRIVACY + '">Privacy e cookie policy</a>.' }
+                { title: 'Maggiori informazioni', description: 'Leggi la <a href="' + PRIVACY + '">privacy policy</a> e la <a href="' + COOKIEP + '">cookie policy</a>.' }
               ]
             }
           },
@@ -84,7 +85,7 @@
               title: 'A word about cookies',
               description: 'We use technical cookies to run the site and, only if you accept, statistics cookies to see which parts interest people most and marketing cookies to measure our ads on Google, Facebook and Instagram. You can change your mind any time from the «Cookies» link at the bottom of the page.',
               acceptAllBtn: 'Accept all', acceptNecessaryBtn: 'Reject', showPreferencesBtn: 'Let me choose', closeIconLabel: 'Close and reject',
-              footer: '<a href="' + PRIVACY + '">Privacy and cookies (Italian)</a>'
+              footer: '<a href="' + PRIVACY + '">Privacy policy</a> <a href="' + COOKIEP + '">Cookie policy</a>'
             },
             preferencesModal: {
               title: 'Your cookie preferences',
@@ -94,7 +95,7 @@
                 { title: 'Necessary <span class="pm__badge">Always on</span>', description: 'They remember your cookie choice and your age confirmation. No marketing data.', linkedCategory: 'necessary' },
                 { title: 'Statistics', description: 'Google Analytics 4 with anonymised IP: it tells us which parts of the page interest people most. Only with your consent.', linkedCategory: 'analytics' },
                 { title: 'Marketing', description: 'Google Ads and Meta Pixel (Facebook and Instagram): they measure our ads and let us show them to people who visited the site. Off until you choose otherwise.', linkedCategory: 'marketing' },
-                { title: 'More information', description: 'Read the <a href="' + PRIVACY + '">Privacy and cookie policy</a>.' }
+                { title: 'More information', description: 'Read the <a href="' + PRIVACY + '">privacy policy</a> and the <a href="' + COOKIEP + '">cookie policy</a>.' }
               ]
             }
           }
