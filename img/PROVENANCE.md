@@ -1,0 +1,1 @@
+Foto gNN.webp: fotografie pubbliche della scheda Google Business "Amorvino Enoteca e vendita vino a Camisano Vicentino" (caricate dal titolare/clienti), scaricate il 12/10/2026 e ottimizzate in WebP. assets/domenico.webp: foto fornita dal cliente. assets/bottle.webp: generata con AI (Freepik/Magnific), sfondo rimosso.

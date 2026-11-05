@@ -1,0 +1,90 @@
+{
+  "phone": "+390444212320",
+  "phoneDisplay": "0444 212320",
+  "whatsapp": "390444212320",
+  "email": "info@amorvino2019.it",
+  "address": "Via Vicenza 50/E, 36043 Camisano Vicentino (VI)",
+  "mapsQuery": "Amorvino Enoteca e vendita vino, Via Vicenza 50/E, Camisano Vicentino",
+  "facebook": "https://www.facebook.com/amorvinoenotecacamisano",
+  "instagram": "https://www.instagram.com/amorvino2019/",
+  "instagramHandle": "@amorvino2019",
+  "googlePlaceId": "ChIJlawnYVEpf0cRegDP4rPIl2I",
+  "reviewsEndpoint": "",
+  "instagramFeedUrl": "",
+  "instagramToken": "",
+  "instagramLimit": 6,
+  "giftWrapPrice": 0,
+  "leadTimeMinutes": 60,
+  "slotMinutes": 30,
+  "daysAhead": 7,
+  "hours": {
+    "0": [
+      [
+        "09:00",
+        "13:00"
+      ]
+    ],
+    "1": [],
+    "2": [
+      [
+        "09:00",
+        "12:45"
+      ],
+      [
+        "15:30",
+        "19:45"
+      ]
+    ],
+    "3": [
+      [
+        "09:00",
+        "12:45"
+      ],
+      [
+        "15:30",
+        "19:45"
+      ]
+    ],
+    "4": [
+      [
+        "09:00",
+        "12:45"
+      ],
+      [
+        "15:30",
+        "19:45"
+      ]
+    ],
+    "5": [
+      [
+        "09:00",
+        "12:45"
+      ],
+      [
+        "15:30",
+        "19:45"
+      ]
+    ],
+    "6": [
+      [
+        "09:00",
+        "12:45"
+      ],
+      [
+        "15:30",
+        "19:45"
+      ]
+    ]
+  },
+  "closedDates": [],
+  "siteUrl": "https://www.amorvinoenoteca.it",
+  "googleCid": "7104367612130164858",
+  "geo": {
+    "lat": 45.5200958,
+    "lng": 11.6935797
+  },
+  "ga4Id": "",
+  "googleAdsId": "",
+  "googleAdsLeadLabel": "",
+  "metaPixelId": ""
+}

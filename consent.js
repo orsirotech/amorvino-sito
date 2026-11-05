@@ -1,0 +1,116 @@
+/* Amorvino — consenso cookie (GDPR, Linee guida Garante 2021), stesso impianto di uniqueborn.com.
+   Libreria: orestbida/cookieconsent v3.1.0 (MIT) in vendor/cookieconsent/.
+   Google Consent Mode v2: tutto negato finché il visitatore non sceglie.
+   Il banner compare solo dopo la conferma della maggiore età (lo decide la pagina con l'evento «amorvino:maggiorenne»).
+   ID di Google Analytics 4, Google Ads e Meta Pixel: in config.json (ga4Id, googleAdsId, googleAdsLeadLabel, metaPixelId).
+   I tracciamenti partono solo sul dominio vero (siteUrl in config.json), mai in anteprima. */
+(function () {
+  var SRC = (document.currentScript && document.currentScript.src) || location.href;
+  var PRIVACY = new URL('privacy/', SRC).href;
+  var IT = (document.documentElement.lang || 'it').slice(0, 2) !== 'en';
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function () { dataLayer.push(arguments); };
+  gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', functionality_storage: 'granted', security_storage: 'granted', wait_for_update: 500 });
+
+  var CFG = null;
+  var cfgReady = (window.__AMORVINO_CFG__ ? Promise.resolve(window.__AMORVINO_CFG__) : fetch(new URL('config.json', SRC).href).then(function (r) { return r.json(); }).catch(function () { return {}; }))
+    .then(function (c) { CFG = c || {}; return CFG; });
+  var dominioVero = function () { try { return !!CFG.siteUrl && new URL(CFG.siteUrl).hostname.replace(/^www\./, '') === location.hostname.replace(/^www\./, ''); } catch (e) { return false; } };
+
+  /* eventi utili alle campagne: clic su WhatsApp e telefono (contatti), indicazioni stradali (visita in negozio) */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a'); if (!a) return;
+    var href = a.getAttribute('href') || '', tipo = null;
+    if (/wa\.me\/|api\.whatsapp\.com/.test(href)) tipo = 'whatsapp';
+    else if (/^tel:/.test(href)) tipo = 'telefono';
+    else if (/google\.[a-z.]+\/maps\/dir/.test(href)) tipo = 'indicazioni';
+    if (!tipo) return;
+    if (window.__ga4) gtag('event', 'contatto', { tipo: tipo, testo: (a.textContent || '').trim().slice(0, 60) });
+    if (window.__ads && CFG.googleAdsLeadLabel) gtag('event', 'conversion', { send_to: CFG.googleAdsId + '/' + CFG.googleAdsLeadLabel });
+    if (window.__fbq && window.fbq) fbq('track', tipo === 'indicazioni' ? 'FindLocation' : 'Contact');
+  }, true);
+
+  function gtagJs(id) { var s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id; document.head.appendChild(s); gtag('js', new Date()); }
+  function applica() {
+    var an = CookieConsent.acceptedCategory('analytics'), mk = CookieConsent.acceptedCategory('marketing');
+    gtag('consent', 'update', { analytics_storage: an ? 'granted' : 'denied', ad_storage: mk ? 'granted' : 'denied', ad_user_data: mk ? 'granted' : 'denied', ad_personalization: mk ? 'granted' : 'denied' });
+    cfgReady.then(function () {
+      if (!dominioVero()) return;
+      if (an && CFG.ga4Id && !window.__ga4) { window.__ga4 = true; if (!window.__gtagjs) { window.__gtagjs = true; gtagJs(CFG.ga4Id); } gtag('config', CFG.ga4Id, { anonymize_ip: true }); }
+      if (mk && CFG.googleAdsId && !window.__ads) { window.__ads = true; if (!window.__gtagjs) { window.__gtagjs = true; gtagJs(CFG.googleAdsId); } gtag('config', CFG.googleAdsId); }
+      if (mk && CFG.metaPixelId && !window.__fbq) { window.__fbq = true; !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js'); fbq('init', CFG.metaPixelId); fbq('track', 'PageView'); }
+    });
+  }
+
+  function avvia() {
+    if (window.__ccRun || !window.CookieConsent) return; window.__ccRun = true;
+    CookieConsent.run({
+      revision: 1,
+      cookie: { name: 'amorvino_consenso', expiresAfterDays: 182, sameSite: 'Lax' },
+      guiOptions: {
+        consentModal: { layout: 'box', position: 'bottom center', equalWeightButtons: true, flipButtons: false },
+        preferencesModal: { layout: 'box', equalWeightButtons: true, flipButtons: false }
+      },
+      categories: {
+        necessary: { enabled: true, readOnly: true },
+        analytics: { autoClear: { cookies: [{ name: /^_ga/ }, { name: '_gid' }], reloadPage: false } },
+        marketing: { autoClear: { cookies: [{ name: /^_fb/ }, { name: '_fbp' }, { name: /^_gcl/ }], reloadPage: false } }
+      },
+      onFirstConsent: applica, onConsent: applica, onChange: applica,
+      language: {
+        default: IT ? 'it' : 'en',
+        translations: {
+          it: {
+            consentModal: {
+              title: 'Due parole sui cookie',
+              description: 'Usiamo cookie tecnici per far funzionare il sito e, solo se accetti, cookie statistici per capire quali pagine interessano di più e cookie di marketing per misurare le pubblicità su Google, Facebook e Instagram. Puoi cambiare idea quando vuoi dal link «Cookie» in fondo alla pagina.',
+              acceptAllBtn: 'Accetta tutti', acceptNecessaryBtn: 'Rifiuta', showPreferencesBtn: 'Scegli tu', closeIconLabel: 'Chiudi e rifiuta',
+              footer: '<a href="' + PRIVACY + '">Privacy e cookie</a>'
+            },
+            preferencesModal: {
+              title: 'Le tue preferenze sui cookie',
+              acceptAllBtn: 'Accetta tutti', acceptNecessaryBtn: 'Rifiuta tutti', savePreferencesBtn: 'Salva le preferenze', closeIconLabel: 'Chiudi', serviceCounterLabel: 'servizio|servizi',
+              sections: [
+                { title: 'Come usiamo i cookie', description: 'Il sito è di Amorvino Enoteca, Camisano Vicentino. Scegli tu quali categorie attivare. I cookie necessari non si possono disattivare: fanno funzionare il sito e ricordano questa scelta per 6 mesi.' },
+                { title: 'Necessari <span class="pm__badge">Sempre attivi</span>', description: 'Ricordano la tua scelta sui cookie e la conferma della maggiore età. Non raccolgono dati per il marketing.', linkedCategory: 'necessary' },
+                { title: 'Statistiche', description: 'Google Analytics 4 con IP anonimizzato: ci dice quali parti della pagina interessano di più. Si attiva solo con il tuo consenso.', linkedCategory: 'analytics', cookieTable: { caption: 'Cookie statistici', headers: { name: 'Nome', desc: 'A cosa serve', exp: 'Durata' }, body: [ { name: '_ga', desc: 'Distingue i visitatori (Google Analytics)', exp: '2 anni' }, { name: '_ga_*', desc: 'Mantiene la sessione (Google Analytics)', exp: '2 anni' } ] } },
+                { title: 'Marketing', description: 'Google Ads e Meta Pixel (Facebook e Instagram): misurano le nostre pubblicità e ci permettono di farle vedere a chi ha già visitato il sito. Restano spenti finché non li scegli tu.', linkedCategory: 'marketing', cookieTable: { caption: 'Cookie di marketing', headers: { name: 'Nome', desc: 'A cosa serve', exp: 'Durata' }, body: [ { name: '_gcl_*', desc: 'Misura le conversioni delle campagne (Google Ads)', exp: '90 giorni' }, { name: '_fbp', desc: 'Misura le campagne (Meta Pixel)', exp: '90 giorni' } ] } },
+                { title: 'Maggiori informazioni', description: 'Leggi la <a href="' + PRIVACY + '">Privacy e cookie policy</a>.' }
+              ]
+            }
+          },
+          en: {
+            consentModal: {
+              title: 'A word about cookies',
+              description: 'We use technical cookies to run the site and, only if you accept, statistics cookies to see which parts interest people most and marketing cookies to measure our ads on Google, Facebook and Instagram. You can change your mind any time from the «Cookies» link at the bottom of the page.',
+              acceptAllBtn: 'Accept all', acceptNecessaryBtn: 'Reject', showPreferencesBtn: 'Let me choose', closeIconLabel: 'Close and reject',
+              footer: '<a href="' + PRIVACY + '">Privacy and cookies (Italian)</a>'
+            },
+            preferencesModal: {
+              title: 'Your cookie preferences',
+              acceptAllBtn: 'Accept all', acceptNecessaryBtn: 'Reject all', savePreferencesBtn: 'Save preferences', closeIconLabel: 'Close', serviceCounterLabel: 'service|services',
+              sections: [
+                { title: 'How we use cookies', description: 'This site belongs to Amorvino Enoteca, Camisano Vicentino. Choose which categories to enable. Necessary cookies cannot be switched off: they run the site and remember this choice for 6 months.' },
+                { title: 'Necessary <span class="pm__badge">Always on</span>', description: 'They remember your cookie choice and your age confirmation. No marketing data.', linkedCategory: 'necessary' },
+                { title: 'Statistics', description: 'Google Analytics 4 with anonymised IP: it tells us which parts of the page interest people most. Only with your consent.', linkedCategory: 'analytics' },
+                { title: 'Marketing', description: 'Google Ads and Meta Pixel (Facebook and Instagram): they measure our ads and let us show them to people who visited the site. Off until you choose otherwise.', linkedCategory: 'marketing' },
+                { title: 'More information', description: 'Read the <a href="' + PRIVACY + '">Privacy and cookie policy</a>.' }
+              ]
+            }
+          }
+        }
+      }
+    });
+  }
+
+  /* ordine: prima la maggiore età, poi l'animazione della bottiglia (circa 4 secondi), solo dopo il banner dei cookie,
+     così il banner non copre la hero. Chi ha già scelto sui cookie non vede nessun banner: si parte subito. */
+  var ATTESA_HERO = 4300;
+  var maggiorenne = false; try { maggiorenne = localStorage.getItem('amorvino_eta') === 'si'; } catch (e) {}
+  var giaScelto = /(?:^|;\s*)amorvino_consenso=/.test(document.cookie);
+  var dopoHero = function () { setTimeout(avvia, document.querySelector('.p1-hero') && !giaScelto ? ATTESA_HERO : 0); };
+  if (maggiorenne || /\/privacy\//.test(location.pathname)) {
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', dopoHero); else dopoHero();
+  } else addEventListener('amorvino:maggiorenne', dopoHero);
+  window.amorvinoCookie = function () { if (window.CookieConsent) { avvia(); CookieConsent.showPreferences(); } };
+})();

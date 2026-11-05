@@ -1,0 +1,25 @@
+# Benvenuti motori di ricerca e assistenti AI
+User-agent: *
+Allow: /
+Disallow: /proposte/
+Disallow: /proposta-1/
+Disallow: /proposta-2/
+Disallow: /proposta-3/
+Disallow: /v2/
+
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://www.amorvinoenoteca.it/sitemap.xml

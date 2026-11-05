@@ -1,0 +1,30 @@
+{
+  "_nota": "LISTINO DI ESEMPIO. Sostituire con il catalogo completo del negozio. Ogni prodotto: id univoco, cat (vini|birre|liquori|altro), name, producer, size, price in euro (numero), desc_it, desc_en, tags opzionali. Prodotti con price null mostrano 'prezzo in negozio' e non entrano nel totale.",
+  "sample": true,
+  "categories": [
+    { "id": "vini",    "it": "Vini",                 "en": "Wines" },
+    { "id": "birre",   "it": "Birre artigianali",    "en": "Craft beers" },
+    { "id": "liquori", "it": "Liquori e distillati", "en": "Spirits & liqueurs" },
+    { "id": "altro",   "it": "Specialità e acque",   "en": "Food & waters" }
+  ],
+  "items": [
+    { "id": "v01", "cat": "vini", "name": "Valpolicella Classico Superiore Ognisanti", "producer": "Bertani", "size": "75 cl", "price": 32.00, "tags": ["rosso", "veneto"], "desc_it": "Il rosso veronese che abbiamo in vetrina su Google: elegante, ciliegia e spezia.", "desc_en": "The Verona red on our Google listing: elegant, cherry and spice." },
+    { "id": "v02", "cat": "vini", "name": "Prosecco Superiore DOCG Brut", "producer": "Selezione Amorvino", "size": "75 cl", "price": 13.50, "tags": ["bollicine", "veneto"], "desc_it": "Le bollicine di casa per l'aperitivo.", "desc_en": "Our house bubbles for aperitivo." },
+    { "id": "v03", "cat": "vini", "name": "Soave Classico", "producer": "Cantina locale", "size": "75 cl", "price": 11.00, "tags": ["bianco", "veneto"], "desc_it": "Bianco fresco e minerale, ideale col pesce.", "desc_en": "Fresh, mineral white, great with fish." },
+    { "id": "v04", "cat": "vini", "name": "Rosso naturale senza solfiti aggiunti", "producer": "Vignaiolo naturale", "size": "75 cl", "price": 16.00, "tags": ["naturale", "rosso"], "desc_it": "Dalla nostra selezione di vini naturali e biodinamici.", "desc_en": "From our natural and biodynamic selection." },
+    { "id": "v05", "cat": "vini", "name": "Amarone della Valpolicella DOCG", "producer": "Cantina della Valpolicella", "size": "75 cl", "price": 39.00, "tags": ["rosso", "regalo"], "desc_it": "Il regalo che non sbaglia mai.", "desc_en": "The gift that never misses." },
+    { "id": "v06", "cat": "vini", "name": "Champagne Brut", "producer": "Récoltant-Manipulant", "size": "75 cl", "price": 42.00, "tags": ["bollicine", "francia", "regalo"], "desc_it": "Dai vini francesi che i clienti ci chiedono di più.", "desc_en": "From the French wines our customers ask for most." },
+    { "id": "b01", "cat": "birre", "name": "Audace", "producer": "32 Via dei Birrai", "size": "75 cl", "price": 9.50, "tags": ["artigianale", "veneto"], "desc_it": "Il birrificio trevigiano in vetrina su Google.", "desc_en": "The Treviso brewery on our Google listing." },
+    { "id": "b02", "cat": "birre", "name": "Oppale", "producer": "32 Via dei Birrai", "size": "75 cl", "price": 9.50, "tags": ["artigianale", "veneto"], "desc_it": "Golden ale luppolata, fresca e beverina.", "desc_en": "Hoppy golden ale, fresh and easy." },
+    { "id": "b03", "cat": "birre", "name": "IPA artigianale", "producer": "Birrificio veneto", "size": "33 cl", "price": 4.50, "tags": ["artigianale"], "desc_it": "Dalla nostra parete di birre artigianali.", "desc_en": "From our craft beer wall." },
+    { "id": "b04", "cat": "birre", "name": "Tripel d'abbazia", "producer": "Birrificio belga", "size": "33 cl", "price": 4.80, "tags": ["belgio"], "desc_it": "Classico belga per chi ama le birre importanti.", "desc_en": "Belgian classic for lovers of big beers." },
+    { "id": "l01", "cat": "liquori", "name": "Gin London Dry", "producer": "Distilleria artigianale", "size": "70 cl", "price": 34.00, "tags": ["gin"], "desc_it": "Dal reparto gin che i clienti definiscono 'davvero interessante'.", "desc_en": "From the gin section customers call 'really interesting'." },
+    { "id": "l02", "cat": "liquori", "name": "Rum agricole invecchiato", "producer": "Distilleria caraibica", "size": "70 cl", "price": 48.00, "tags": ["rum", "regalo"], "desc_it": "Etichette che raramente si trovano altrove.", "desc_en": "Labels you rarely find elsewhere." },
+    { "id": "l03", "cat": "liquori", "name": "Grappa di Amarone barricata", "producer": "Distilleria veneta", "size": "50 cl", "price": 29.00, "tags": ["grappa", "veneto"], "desc_it": "Fine pasto veneto.", "desc_en": "Veneto's after-dinner classic." },
+    { "id": "l04", "cat": "liquori", "name": "Whisky Single Malt 12 anni", "producer": "Distilleria scozzese", "size": "70 cl", "price": 55.00, "tags": ["whisky", "regalo"], "desc_it": "Per chi vuole fare bella figura.", "desc_en": "For when you want to impress." },
+    { "id": "l05", "cat": "liquori", "name": "Amaro artigianale", "producer": "Liquorificio italiano", "size": "70 cl", "price": 24.00, "tags": ["amaro"], "desc_it": "Liquori italiani ed esteri, anche in piccoli formati.", "desc_en": "Italian and foreign liqueurs, small formats too." },
+    { "id": "a01", "cat": "altro", "name": "Acqua di lusso in vetro", "producer": "Selezione Amorvino", "size": "75 cl", "price": 4.00, "tags": ["acqua"], "desc_it": "Le acque di lusso per la tavola delle feste.", "desc_en": "Luxury waters for the festive table." },
+    { "id": "a02", "cat": "altro", "name": "Specialità alimentare artigianale", "producer": "Produttore locale", "size": "1 pz", "price": null, "tags": ["food"], "desc_it": "Prezzo in negozio: te lo diciamo quando prepariamo l'ordine.", "desc_en": "Price in store: we'll tell you when we prepare your order." },
+    { "id": "a03", "cat": "altro", "name": "Confezione regalo con 2 bottiglie a scelta", "producer": "Amorvino", "size": "box", "price": null, "tags": ["regalo"], "desc_it": "Scegli le bottiglie, al resto pensiamo noi.", "desc_en": "Pick the bottles, we do the rest." }
+  ]
+}
